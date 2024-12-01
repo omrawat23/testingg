@@ -20,13 +20,6 @@ export const siteMetadata: Metadata = {
     description: "Explore the portfolio of Om Rawat, a Full Stack Engineer specializing in web development.",
     url: "https://www.omrawat.xyz",
     siteName: "Om Rawat",
-    images: [
-      {
-        url: "https://www.omrawat.xyz/og-image.jpg",
-        width: 1200,
-        height: 630,
-      },
-    ],
     locale: "en-US",
     type: "website",
   },

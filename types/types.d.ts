@@ -1,6 +1,7 @@
 import { Timestamp } from "firebase/firestore";
 
 export type BlogPost = {
+    slug: any;
     readtime: ReactNode
     id: string
     title: string

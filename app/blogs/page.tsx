@@ -1,12 +1,8 @@
-'use client'
+'use client';
 
 import { useEffect, useState } from 'react';
 import MaxWidthWrapper from "@/components/MaxWidth";
-import {
-  CalendarIcon,
-  ChevronLeftIcon,
-  ClockIcon,
-} from "@radix-ui/react-icons";
+import { CalendarIcon, ChevronLeftIcon, ClockIcon } from "@radix-ui/react-icons";
 import { Link } from "next-view-transitions";
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '@/firebase';
@@ -21,13 +17,13 @@ interface Post {
 }
 
 const BlogsPage = () => {
-    const router = useRouter();
+  const router = useRouter();
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchPosts() {
+    const fetchPosts = async () => {
       try {
         const postsRef = collection(db, 'posts');
         const q = query(postsRef, where('authorId', '==', 'omrawat23@gmail.com'));
@@ -39,32 +35,29 @@ const BlogsPage = () => {
             id: doc.id,
             title: data.title,
             description: data.description || data.desc,
-            createdAt: data.createdAt?.toDate 
-              ? data.createdAt.toDate().toISOString().split('T')[0] 
+            createdAt: data.createdAt?.toDate
+              ? data.createdAt.toDate().toISOString().split('T')[0]
               : 'Unknown date',
-            readtime: data.readtime ? `${data.readtime} min read` : '4 min read'
+            readtime: data.readtime ? `${data.readtime} min read` : '4 min read',
           };
         });
-        
 
-        // Sort posts by createdAt date
-        const sortedPosts = postData.sort((a, b) => 
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        const sortedPosts = postData.sort(
+          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
 
         setPosts(sortedPosts);
       } catch (err) {
-        setError('Failed to fetch blog posts');
+        setError('Failed to fetch blog posts.');
         console.error('Error fetching posts:', err);
       } finally {
         setLoading(false);
       }
-    }
+    };
 
     fetchPosts();
   }, []);
 
-  // Create slug from title
   const createSlug = (title: string) => {
     return title
       .toLowerCase()
@@ -96,9 +89,10 @@ const BlogsPage = () => {
   return (
     <MaxWidthWrapper maxWidth="sm">
       <div className="my-32 sm:my-52">
-        <button 
-        onClick={() => router.back()} 
-        className="text-xs flex items-center -ml-1">
+        <button
+          onClick={() => router.back()}
+          className="text-xs flex items-center -ml-1"
+        >
           <ChevronLeftIcon width={13} height={13} />
           back
         </button>
@@ -114,8 +108,8 @@ const BlogsPage = () => {
             <p className="text-muted-foreground">No blog posts found.</p>
           ) : (
             posts.map((post) => (
-              <Link 
-                key={post.id} 
+              <Link
+                key={post.id}
                 href={`/blog/${createSlug(post.title)}`}
                 className="block mb-3"
               >
@@ -131,7 +125,6 @@ const BlogsPage = () => {
                       <CalendarIcon width={13} height={13} />
                       {post.createdAt}
                     </p>
-
                     <p className="text-[0.70em] rounded-md w-fit flex items-center gap-1.5">
                       <ClockIcon width={13} height={13} />
                       {post.readtime}

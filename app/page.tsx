@@ -2,7 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import dynamic from 'next/dynamic'
 import { Github, Mail, Twitter, Youtube,FileUser } from 'lucide-react'
-import { PROFILE, SOCIAL_LINKS, CURRENT_PROJECTS, SERVICES, PROJECTS} from '@/constants'
+import { PROFILE, SOCIAL_LINKS, CURRENT_PROJECTS, PROJECTS} from '@/constants'
 import { generatePersonSchema, generateProjectSchema } from './structuredData'
 import MaxWidthWrapper from '@/components/MaxWidth'
 import { Hero } from "@/components/Hero"

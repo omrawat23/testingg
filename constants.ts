@@ -28,16 +28,16 @@ export const CURRENT_PROJECTS = [
   },
 ];
 
-export const SERVICES = [
-  {
-    title: "💼 hire me (or my team)",
-    description: "with experience building production ready applications, i (or my team) can build your next project.",
-  },
-  {
-    title: "💭 book a consultation",
-    description: "need advice on your product? book a consultation to get clarity on your next steps.",
-  },
-]
+// export const SERVICES = [
+//   {
+//     title: "💼 hire me (or my team)",
+//     description: "with experience building production ready applications, i (or my team) can build your next project.",
+//   },
+//   {
+//     title: "💭 book a consultation",
+//     description: "need advice on your product? book a consultation to get clarity on your next steps.",
+//   },
+// ]
 
 export const PROJECTS = [
   {
