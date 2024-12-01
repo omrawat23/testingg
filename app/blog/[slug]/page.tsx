@@ -1,7 +1,6 @@
 import React from "react";
-import { collection, getDocs,query,where,doc } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/firebase";
-import "@/app/prosemirror.css";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Clock, Eye } from 'lucide-react';
 import { BlogPost } from "@/types/types";
@@ -10,52 +9,18 @@ import incrementViewCount from "@/components/ViewCount";
 import { marked } from "marked";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { PROFILE } from '@/constants';
-import { Metadata, ResolvingMetadata } from "next";
+import DOMPurify from 'isomorphic-dompurify';
+import BlogContent from "./BlogContent";
 
 type Props = {
   params: { slug: string }
 }
-
-// export async function generateMetadata(
-//   { params }: Props,
-//   parent: ResolvingMetadata
-// ): Promise<Metadata> {
-//   const slug = params.slug;
-
-//   const docRef = doc(db, "posts", slug);
-//   const docSnap = await getDoc(docRef);
-//   const post = docSnap.exists() ? docSnap.data() as BlogPost : null;
-
-//   const previousImages = (await parent).openGraph?.images || []
-
-//   return {
-//     title: post?.title ? `${post.title} | ${PROFILE.name} Blog` : `${PROFILE.name} Blog`,
-//     description: post?.desc || `Read the latest articles on ${PROFILE.name}'s blog.`,
-//     authors: [{ name: PROFILE.name }],
-//     openGraph: {
-//       title: post?.title || `${PROFILE.name} Blog`,
-//       description: post?.desc || `Explore the latest insights from ${PROFILE.name}.`,
-//       type: "article",
-//       publishedTime: post?.createdAt?.toDate().toISOString(),
-//       authors: [PROFILE.name],
-//       images: post?.imageUrl ? [post.imageUrl, ...previousImages] : previousImages,
-//     },
-//     twitter: {
-//       card: "summary_large_image",
-//       title: post?.title || `${PROFILE.name} Blog`,
-//       description: post?.desc || `Discover the latest content from ${PROFILE.name}.`,
-//       images: post?.imageUrl ? [post.imageUrl] : [],
-//     },
-//   }
-// }
 
 export default async function BlogPosts({ params }: Props) {
   try {
     const postsRef = collection(db, "posts");
     const q = query(postsRef, where("slug", "==", params.slug));
     
-    // Execute the query
     const querySnapshot = await getDocs(q);
     
     if (querySnapshot.empty) {
@@ -66,14 +31,11 @@ export default async function BlogPosts({ params }: Props) {
       );
     }
 
-    // Get the first matching document
     const docSnap = querySnapshot.docs[0];
-    const postId = docSnap.id; // This is the actual document ID
+    const postId = docSnap.id;
     const post = docSnap.data() as BlogPost;
 
-    const htmlContent = marked(post.content);
 
-    // Increment the view count using the correct document ID
     incrementViewCount(postId);
 
     return (
@@ -102,7 +64,9 @@ export default async function BlogPosts({ params }: Props) {
                 </time>
                 <div className="flex items-center space-x-1">
                   <Clock className="w-4 h-4" aria-hidden="true" />
-                  <p className="text-sm text-muted-foreground">6 min read</p>
+                  <p className="text-sm text-muted-foreground">
+                    {post.readtime ? `${post.readtime} min read` : '6 min read'}
+                  </p>
                 </div>
                 <div className="flex items-center space-x-1">
                   <Eye className="w-4 h-4" aria-hidden="true" />
@@ -133,10 +97,7 @@ export default async function BlogPosts({ params }: Props) {
             </figure>
           )}
 
-          <div
-            className="prose max-w-none"
-            dangerouslySetInnerHTML={{ __html: htmlContent }}
-          />
+          <BlogContent htmlContent={post.content} />
 
           <footer className="mt-12 flex justify-center items-center">
             <Link href="/blogs">

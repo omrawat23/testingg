@@ -16,7 +16,7 @@ interface Post {
   title: string
   desc: string
   createdAt: string
-  readTime: string
+  readtime: string
 }
 
 let LATEST_BLOG: {
@@ -48,7 +48,7 @@ export default function LatestBlogSection() {
             createdAt: data.createdAt?.toDate
               ? data.createdAt.toDate().toLocaleString()
               : 'Unknown date',
-            readTime: data.readTime || '2 min read'
+            readtime: data.readtime ? `${data.readtime} min read` : '4 min read'
           }
         })
 
@@ -130,7 +130,7 @@ export default function LatestBlogSection() {
 
                     <p className="text-[0.70em] rounded-md w-fit flex items-center gap-1.5">
                       <ClockIcon width={13} height={13} />
-                      {post.readTime}
+                      {post.readtime}
                     </p>
                   </div>
                 </div>

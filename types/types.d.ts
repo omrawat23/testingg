@@ -1,4 +1,7 @@
+import { Timestamp } from "firebase/firestore";
+
 export type BlogPost = {
+    readtime: ReactNode
     id: string
     title: string
     desc: string
@@ -12,6 +15,7 @@ export type BlogPost = {
     views?: number
     readTime: number
     authorImage: string
+    
   }
   
 

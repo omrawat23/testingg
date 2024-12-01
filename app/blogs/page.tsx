@@ -17,7 +17,7 @@ interface Post {
   title: string;
   description: string;
   createdAt: string;
-  readTime: string;
+  readtime: string;
 }
 
 const BlogsPage = () => {
@@ -42,9 +42,10 @@ const BlogsPage = () => {
             createdAt: data.createdAt?.toDate 
               ? data.createdAt.toDate().toISOString().split('T')[0] 
               : 'Unknown date',
-            readTime: data.readTime || '2 min read'
+            readtime: data.readtime ? `${data.readtime} min read` : '4 min read'
           };
         });
+        
 
         // Sort posts by createdAt date
         const sortedPosts = postData.sort((a, b) => 
@@ -133,7 +134,7 @@ const BlogsPage = () => {
 
                     <p className="text-[0.70em] rounded-md w-fit flex items-center gap-1.5">
                       <ClockIcon width={13} height={13} />
-                      {post.readTime}
+                      {post.readtime}
                     </p>
                   </div>
                 </div>
