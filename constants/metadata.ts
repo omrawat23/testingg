@@ -1,7 +1,11 @@
 import { Metadata } from "next"
 
 export const siteMetadata: Metadata = {
-  title: "Om Rawat  | Full Stack Engineer",
+  metadataBase: new URL("https://omrawat.xyz"),
+  title: {
+    default: "Om Rawat",
+    template: "%s - Om",
+  },
   description: "Om Rawat is a Full Stack Engineer specializing in web development, React, and Next.js. Explore projects, services, and latest blog posts.",
   icons: [
     {
@@ -12,10 +16,10 @@ export const siteMetadata: Metadata = {
   keywords: ["Full Stack Engineer", "YouTuber", "Web Development", "React", "Next.js"],
   authors: [{ name: "Om Rawat" }],
   openGraph: {
-    title: "Om Rawat | Full Stack Engineer",
+    title: "Om Rawat",
     description: "Explore the portfolio of Om Rawat, a Full Stack Engineer specializing in web development.",
     url: "https://www.omrawat.xyz",
-    siteName: "Om Rawat Portfolio",
+    siteName: "Om Rawat",
     images: [
       {
         url: "https://www.omrawat.xyz/og-image.jpg",
@@ -28,10 +32,13 @@ export const siteMetadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Om Rawat | Full Stack Engineer",
+    title: "Om Rawat",
     description: "Explore the portfolio of Om Rawat, a Full Stack Engineer specializing in web development.",
     images: ["https://www.omrawat.xyz/twitter-image.jpg"],
     creator: "@omraw29",
+  },
+  verification: {
+    google: "1UfWpmVsXpdgCvfTaMNEt5ck10YnDgRbqBR2c5HkAuQ",
   },
   robots: {
     index: true,
