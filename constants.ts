@@ -43,19 +43,19 @@ export const PROJECTS = [
   {
     name: "Feedbackify",
     description: "Feedbackify allows users to integrate a feedback widget into their applications.",
-    url: "",
+    url: "https://feedbackifyy.vercel.app",
     image: "/f.png",
   },
   {
     name: "Spotifind",
     description: "Spotifind allows you to generate custom playlists based on your musical taste.",
-    url: "",
+    url: "https://spotifindd.vercel.app",
     image: "/spotifind.PNG",
   },
   {
     name: "Cinenova",
     description: "It is a multi-platform streaming application to watch movies and Tv shows.",
-    url: "",
+    url: "https://cinenova.vercel.app",
     image: "/c.png",
   },
   {

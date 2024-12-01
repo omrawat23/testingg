@@ -3,6 +3,12 @@ import { Metadata } from "next"
 export const siteMetadata: Metadata = {
   title: "Om Rawat  | Full Stack Engineer",
   description: "Om Rawat is a Full Stack Engineer specializing in web development, React, and Next.js. Explore projects, services, and latest blog posts.",
+  icons: [
+    {
+      url: "/omi.png",
+      href: "/omi.png",
+    },
+  ],
   keywords: ["Full Stack Engineer", "YouTuber", "Web Development", "React", "Next.js"],
   authors: [{ name: "Om Rawat" }],
   openGraph: {
