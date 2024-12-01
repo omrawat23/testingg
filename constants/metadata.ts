@@ -37,9 +37,6 @@ export const siteMetadata: Metadata = {
     images: ["https://www.omrawat.xyz/twitter-image.jpg"],
     creator: "@omraw29",
   },
-  verification: {
-    google: "1UfWpmVsXpdgCvfTaMNEt5ck10YnDgRbqBR2c5HkAuQ",
-  },
   robots: {
     index: true,
     follow: true,

@@ -5,12 +5,18 @@ import { collection, query, where, getDocs } from 'firebase/firestore'
 import { db } from '@/firebase'
 import Link from 'next/link'
 import { Button } from './ui/button'
+import {
+  CalendarIcon,
+  ChevronLeftIcon,
+  ClockIcon,
+} from "@radix-ui/react-icons";
 
 interface Post {
   id: string
   title: string
   desc: string
   createdAt: string
+  readTime: string
 }
 
 let LATEST_BLOG: {
@@ -42,6 +48,7 @@ export default function LatestBlogSection() {
             createdAt: data.createdAt?.toDate
               ? data.createdAt.toDate().toLocaleString()
               : 'Unknown date',
+            readTime: data.readTime || '2 min read'
           }
         })
 
@@ -86,25 +93,51 @@ export default function LatestBlogSection() {
     return <div className="text-red-500">{error}</div>
   }
 
+  function createSlug(title: string) {
+    return title
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+      .replace(/\s+/g, '-') // Replace spaces with hyphens
+      .trim(); // Remove trailing spaces
+  }
+  
   return (
-    <div className="p-4">
+    <div className="">
       {posts.length === 0 ? (
         <p>No posts found</p>
       ) : (
         <div>
-          <h2 className="text-lg font-semibold mb-4">Latest blog 📝</h2>
+          <h2 className="text-md sm:text-lg font-bold text-white mb-4">Latest blog 📝</h2>
           <ul className="space-y-4">
-            {visiblePosts.map((post) => (
+          {visiblePosts.map((post) => {
+            const slug = createSlug(post.title);
+
+            return (
               <li key={post.id}>
-                <Link href={`/blog/${post.id}`} className="block">
-                  <article className="p-4 border border-gray-800 rounded-lg">
-                    <h3 className="font-medium">{post.title}</h3>
-                    <p className="text-gray-400 text-sm">{post.desc}</p>
-                    <time className="text-sm text-gray-500">{post.createdAt}</time>
-                  </article>
+                <Link href={`/blog/${slug}`} className="block">
+                <div className="lowercase border border-gray-400/15 rounded-md p-3">
+                  <div className="space-y-3">
+                    <h1 className="text-sm lowercase">{post.title}</h1>
+                    <p className="text-xs text-muted-foreground lowercase">
+                      {post.desc}
+                    </p>
+                  </div>
+                  <div className="mt-3 text-muted-foreground flex gap-6 items-center">
+                    <p className="text-[0.70em] rounded-md w-fit flex items-center gap-1.5">
+                      <CalendarIcon width={13} height={13} />
+                      {post.createdAt}
+                    </p>
+
+                    <p className="text-[0.70em] rounded-md w-fit flex items-center gap-1.5">
+                      <ClockIcon width={13} height={13} />
+                      {post.readTime}
+                    </p>
+                  </div>
+                </div>
                 </Link>
               </li>
-            ))}
+            );
+          })}
           </ul>
           {posts.length > visiblePosts.length && (
             <div className="max-w-3xl mx-auto">

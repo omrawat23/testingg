@@ -13,14 +13,14 @@ export const SOCIAL_LINKS = [
 
 export const CURRENT_PROJECTS = [
   {
-    role: "Full Stack Developer Intern",
+    role: "Full Stack Intern",
     name: "Flib",
     location: "Gurgaon",
     date: "May 2024 - October 2024",
     description: "Engineered the Flib web app, focusing on frontend architecture and performance optimization. Enhanced SEO and load times with image optimization and lazy loading. Tech stack: Next.js 14, TypeScript, Hygraph, Tailwind CSS, Framer Motion.",
   },
   {
-    role: "Frontend Developer Intern",
+    role: "Frontend Intern",
     name: "Olympiad Success",
     location: "Gurgaon", 
     date: "June 2023 - July 2023",

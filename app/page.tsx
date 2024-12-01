@@ -5,6 +5,8 @@ import { Github, Mail, Twitter, Youtube,FileUser } from 'lucide-react'
 import { PROFILE, SOCIAL_LINKS, CURRENT_PROJECTS, SERVICES, PROJECTS} from '@/constants'
 import { generatePersonSchema, generateProjectSchema } from './structuredData'
 import MaxWidthWrapper from '@/components/MaxWidth'
+import { Hero } from "@/components/Hero"
+import Particles from "@/components/ui/particles"
 
 // Dynamically import components that are not needed on initial load
 const DynamicProjectsSection = dynamic(() => import('@/components/ProjectsSection'))
@@ -32,6 +34,7 @@ export default function Home() {
   return (
     <MaxWidthWrapper maxWidth="md">
       <main className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 md:p-8">
+      
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -64,7 +67,7 @@ export default function Home() {
           
           <div className="text-center sm:text-left">
             <h1 className="text-xl sm:text-2xl font-bold">{PROFILE.name}</h1>
-            <p className="text-sm sm:text-base text-gray-400">{PROFILE.title}</p>
+            <p className="text-sm text-gray-400">{PROFILE.title}</p>
           </div>
         </div>
         
@@ -75,7 +78,7 @@ export default function Home() {
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-gray-400 hover:text-white transition-colors duration-300"
+            className="text-gray-400 hover:text-white transition-colors duration-300 mt-4"
           >
             <SocialIcon name={link.icon} />
           </Link>
@@ -86,7 +89,7 @@ export default function Home() {
       <div className="mt-4 space-y-2 text-sm text-gray-400 text-center sm:text-left">
         <p>
           I also write technical blogs sharing insights from my projects. 
-          Check them out <Link href="/blog" className="underline hover:text-white">here</Link>.
+          Check them out <Link href="/blogs" className="underline hover:text-white">here</Link>.
         </p>
         
         <div className="flex items-center space-x-2">
@@ -113,14 +116,14 @@ export default function Home() {
                 >
                   <div className="flex justify-between items-start mb-2">
                     <div>
-                      <h3 className="text-base sm:text-md font-semibold text-white">{project.role}</h3>
-                      <p className="text-sm text-gray-400">
+                      <h1 className="text-sm lowercase">{project.role}</h1>
+                      <p className="text-xs text-muted-foreground lowercase">
                         {project.name} • {project.location}
                       </p>
                     </div>
-                    <span className="text-xs text-gray-400 font-medium">{project.date}</span>
+                    <span className="text-[0.70em] rounded-md w-fit flex items-center gap-1.5">{project.date}</span>
                   </div>
-                  <p className="text-sm text-gray-400 leading-relaxed">{project.description}</p>
+                  <p className="text-xs text-muted-foreground lowercase">{project.description}</p>
                 </div>
               ))}
             </div>
@@ -144,8 +147,16 @@ export default function Home() {
 
           {/* Latest Blog Section */}
           <DynamicLatestBlogSection />
+          
         </div>
+        <Particles
+        className="absolute inset-0 min-h-screen"
+        quantity={100}
+        ease={80}
+        refresh
+      />
       </main>
+     
     </MaxWidthWrapper>
   )
 }
