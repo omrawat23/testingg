@@ -1,8 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://www.omrawat.xyz/sitemap.xml
-
-Disallow: /private/
-Disallow: /admin/
-

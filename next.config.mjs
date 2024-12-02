@@ -6,18 +6,6 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   reactStrictMode: true,
-  async rewrites() {
-    return [
-      {
-        source: '/sitemap.xml',
-        destination: '/api/sitemap',
-      },
-      {
-        source: '/robots.txt',
-        destination: '/api/robots',
-      },
-    ]
-  },
   images: {
     domains: ['example.com', 'firebasestorage.googleapis.com'], // Add domains here
     remotePatterns: [
