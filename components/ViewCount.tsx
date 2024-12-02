@@ -7,7 +7,7 @@ export default async function incrementViews(postId: string) {
     await updateDoc(postRef, {
       views: increment(1) // Atomic increment by 1
     })
-    console.log(`Views incremented for post ${postId}`)
+    // console.log(`Views incremented for post ${postId}`)
   } catch (error) {
     console.error('Error incrementing views:', error)
   }

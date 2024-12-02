@@ -1,101 +1,64 @@
-'use client';
-
-import { useEffect, useState } from 'react';
-import MaxWidthWrapper from "@/components/MaxWidth";
-import { CalendarIcon, ChevronLeftIcon, ClockIcon } from "@radix-ui/react-icons";
-import { Link } from "next-view-transitions";
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { cache } from 'react'
+import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { db } from '@/firebase';
-import { useRouter } from 'next/navigation';
+import MaxWidthWrapper from "@/components/MaxWidth"
+import { CalendarIcon, ClockIcon } from "@radix-ui/react-icons"
+import Link from 'next/link'
+import BackButton from './BackButton'
 
 interface Post {
-  id: string;
-  title: string;
-  description: string;
-  createdAt: string;
-  readtime: string;
+  id: string
+  title: string
+  description: string
+  createdAt: string
+  readtime: string
 }
 
-const BlogsPage = () => {
-  const router = useRouter();
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+const getPosts = cache(async (): Promise<Post[]> => {
+  const postsRef = collection(db, 'posts')
+  const q = query(
+    postsRef, 
+    where('authorId', '==', 'omrawat23@gmail.com'),
+    orderBy('createdAt', 'desc')
+  )
+  const querySnapshot = await getDocs(q)
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const postsRef = collection(db, 'posts');
-        const q = query(postsRef, where('authorId', '==', 'omrawat23@gmail.com'));
-        const querySnapshot = await getDocs(q);
+  return querySnapshot.docs.map((doc) => {
+    const data = doc.data()
+    return {
+      id: doc.id,
+      title: data.title,
+      description: data.description || data.desc,
+      createdAt: data.createdAt?.toDate
+        ? data.createdAt.toDate().toISOString().split('T')[0]
+        : 'Unknown date',
+      readtime: data.readtime ? `${data.readtime} min read` : '4 min read',
+    }
+  })
+})
 
-        const postData = querySnapshot.docs.map((doc) => {
-          const data = doc.data();
-          return {
-            id: doc.id,
-            title: data.title,
-            description: data.description || data.desc,
-            createdAt: data.createdAt?.toDate
-              ? data.createdAt.toDate().toISOString().split('T')[0]
-              : 'Unknown date',
-            readtime: data.readtime ? `${data.readtime} min read` : '4 min read',
-          };
-        });
+export async function generateStaticParams() {
+  const posts = await getPosts()
+  return posts.map((post) => ({
+    slug: createSlug(post.title),
+  }))
+}
 
-        const sortedPosts = postData.sort(
-          (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        );
+function createSlug(title: string) {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .trim()
+}
 
-        setPosts(sortedPosts);
-      } catch (err) {
-        setError('Failed to fetch blog posts.');
-        console.error('Error fetching posts:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPosts();
-  }, []);
-
-  const createSlug = (title: string) => {
-    return title
-      .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, '')
-      .replace(/\s+/g, '-')
-      .trim();
-  };
-
-  if (loading) {
-    return (
-      <MaxWidthWrapper maxWidth="sm">
-        <div className="my-32 sm:my-52">
-          <p>Loading blog posts...</p>
-        </div>
-      </MaxWidthWrapper>
-    );
-  }
-
-  if (error) {
-    return (
-      <MaxWidthWrapper maxWidth="sm">
-        <div className="my-32 sm:my-52">
-          <p className="text-red-500">{error}</p>
-        </div>
-      </MaxWidthWrapper>
-    );
-  }
+export default async function BlogsPage() {
+  const posts = await getPosts()
 
   return (
     <MaxWidthWrapper maxWidth="sm">
       <div className="my-32 sm:my-52">
-        <button
-          onClick={() => router.back()}
-          className="text-xs flex items-center -ml-1"
-        >
-          <ChevronLeftIcon width={13} height={13} />
-          back
-        </button>
+        <BackButton />
         <div className="mt-6">
           <h1 className="text-muted-foreground text-sm lowercase">
             I occasionally write technical articles to share details about what
@@ -137,7 +100,6 @@ const BlogsPage = () => {
         </div>
       </div>
     </MaxWidthWrapper>
-  );
-};
+  )
+}
 
-export default BlogsPage;

@@ -3,9 +3,7 @@ import Link from "next/link"
 import dynamic from 'next/dynamic'
 import { Github, Mail, Twitter, Youtube,FileUser } from 'lucide-react'
 import { PROFILE, SOCIAL_LINKS, CURRENT_PROJECTS, PROJECTS} from '@/constants'
-import { generatePersonSchema, generateProjectSchema } from './structuredData'
 import MaxWidthWrapper from '@/components/MaxWidth'
-import { Hero } from "@/components/Hero"
 import Particles from "@/components/ui/particles"
 
 // Dynamically import components that are not needed on initial load
@@ -28,22 +26,11 @@ const SocialIcon = ({ name }: { name: string }) => {
 }
 
 export default function Home() {
-  const personSchema = generatePersonSchema()
-  // const blogPostSchema = generateBlogPostSchema()
-  const projectSchemas = generateProjectSchema()
+
   return (
     <MaxWidthWrapper maxWidth="md">
       <main className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 md:p-8">
-      
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@graph": [personSchema, ...projectSchemas]
-            })
-          }}
-        />
+
         <div className="max-w-4xl w-full space-y-6 sm:space-y-8">
           {/* Profile Section */}
           <section className="w-full p-4 sm:p-6 border border-gray-800 rounded-lg overflow-hidden relative">
@@ -66,8 +53,8 @@ export default function Home() {
           </div>
           
           <div className="text-center sm:text-left">
-            <h1 className="text-xl sm:text-2xl font-bold">{PROFILE.name}</h1>
-            <p className="text-sm text-gray-400">{PROFILE.title}</p>
+            <h1 className="text-xl sm:text-xl font-bold">{PROFILE.name}</h1>
+            <p className="text-sm lowercase text-gray-400">{PROFILE.title}</p>
           </div>
         </div>
         
@@ -88,8 +75,8 @@ export default function Home() {
       
       <div className="mt-4 space-y-2 text-sm text-gray-400 text-center sm:text-left">
         <p>
-          I also write technical blogs sharing insights from my projects. 
-          Check them out <Link href="/blogs" className="underline hover:text-white">here</Link>.
+          I also write technical blogs sharing insights from my projects
+          check them out <Link href="/blogs" className="underline hover:text-white">here</Link>.
         </p>
         
         <div className="flex items-center space-x-2">
