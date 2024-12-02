@@ -10,6 +10,7 @@ import { marked } from "marked";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import DOMPurify from 'isomorphic-dompurify';
+import { ChevronLeftIcon } from "@radix-ui/react-icons";
 import BlogContent from "./BlogContent";
 
 type Props = {
@@ -43,7 +44,12 @@ export default async function BlogPosts({ params }: Props) {
         <div className="max-w-3xl mx-auto">
           <div className="mt-8 flex justify-start">
             <Link href="/">
-              <Button aria-label="Back to home page">Back</Button>
+            <button
+              className="text-sm flex items-center -ml-6 px-2 py-1 rounded-md hover:bg-gray-900 transition duration-200 ease-in-out"
+            >
+              <ChevronLeftIcon width={13} height={13} />
+              back
+            </button>
             </Link>
           </div>
         </div>
@@ -100,8 +106,12 @@ export default async function BlogPosts({ params }: Props) {
           <BlogContent htmlContent={post.content} />
 
           <footer className="mt-12 flex justify-center items-center">
-            <Link href="/blogs">
-              <Button aria-label="See all blog posts">See all posts</Button>
+            <Link href="/blogs" prefetch={true}>
+              <button
+                className="text-sm flex items-center -ml-6 px-2 py-1 rounded-md hover:bg-gray-900 transition duration-200 ease-in-out">
+                <ChevronLeftIcon width={13} height={13} />
+                 See all posts
+              </button>
             </Link>
           </footer>
         </article>

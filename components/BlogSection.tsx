@@ -1,7 +1,7 @@
 import { cache } from 'react';
 import { collection, query, where, getDocs, limit, orderBy, DocumentData } from 'firebase/firestore';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import { ChevronLeftIcon } from "@radix-ui/react-icons";
 import { CalendarIcon, ClockIcon } from '@radix-ui/react-icons';
 import { db } from '@/firebase';
 
@@ -56,7 +56,7 @@ function createSlug(title: string): string {
 // LatestBlogSection Component
 export default async function LatestBlogSection() {
   const posts = await fetchPosts();
-  // console.log(posts)
+
   if (posts.length === 0) {
     return <p className="text-white">No posts found</p>;
   }
@@ -70,10 +70,10 @@ export default async function LatestBlogSection() {
 
           return (
             <li key={post.id}>
-              <Link href={`/blog/${slug}`} className="block">
+              <Link href={`/blog/${slug}`} prefetch={true} className="block">
                 <div className="lowercase border border-gray-400/15 rounded-md p-3 hover:shadow-lg transition">
                   <div className="space-y-3">
-                    <h1 className="text-sm lowercase font-semibold">{post.title}</h1>
+                    <h3 className="text-sm lowercase font-semibold">{post.title}</h3>
                     <p className="text-xs text-muted-foreground lowercase">{post.desc}</p>
                   </div>
                   <div className="mt-3 text-muted-foreground flex gap-6 items-center">
@@ -95,8 +95,12 @@ export default async function LatestBlogSection() {
       {posts.length === 3 && (
         <div className="max-w-3xl mx-auto">
           <div className="mt-12 flex justify-center items-center">
-            <Link href="/blogs">
-              <Button>See all posts</Button>
+            <Link href="/blogs" prefetch={true}>
+            <button
+            className="text-sm flex items-center -ml-6 px-2 py-1 rounded-md hover:bg-gray-900 transition duration-200 ease-in-out">
+                <ChevronLeftIcon width={13} height={13} />
+                 See all posts
+              </button>
             </Link>
           </div>
         </div>
@@ -104,3 +108,4 @@ export default async function LatestBlogSection() {
     </div>
   );
 }
+

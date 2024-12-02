@@ -72,6 +72,7 @@ export default async function BlogsPage() {
           ) : (
             posts.map((post) => (
               <Link
+                prefetch={true}
                 key={post.id}
                 href={`/blog/${createSlug(post.title)}`}
                 className="block mb-3"
