@@ -8,7 +8,7 @@ export default function BackButton() {
 
   return (
     <button
-      onClick={() => router.back()}
+      onClick={() => router.push('/')}
       className="text-xs flex items-center -ml-1"
     >
       <ChevronLeftIcon width={13} height={13} />

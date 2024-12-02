@@ -43,9 +43,9 @@ export default async function BlogPosts({ params }: Props) {
       <>
         <div className="max-w-3xl mx-auto">
           <div className="mt-8 flex justify-start">
-            <Link href="/">
+            <Link href="/blogs">
             <button
-              className="text-sm flex items-center -ml-6 px-2 py-1 rounded-md hover:bg-gray-900 transition duration-200 ease-in-out"
+              className="text-sm flex items-center -ml-1 px-2 py-1 rounded-md hover:bg-gray-900 transition duration-200 ease-in-out"
             >
               <ChevronLeftIcon width={13} height={13} />
               back
@@ -108,7 +108,7 @@ export default async function BlogPosts({ params }: Props) {
           <footer className="mt-12 flex justify-center items-center">
             <Link href="/blogs" prefetch={true}>
               <button
-                className="text-sm flex items-center -ml-6 px-2 py-1 rounded-md hover:bg-gray-900 transition duration-200 ease-in-out">
+                className="text-sm flex items-center -ml-1 px-2 py-1 rounded-md hover:bg-gray-900 transition duration-200 ease-in-out">
                 <ChevronLeftIcon width={13} height={13} />
                  See all posts
               </button>
