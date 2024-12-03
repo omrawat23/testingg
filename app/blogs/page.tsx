@@ -14,7 +14,7 @@ interface Post {
   readtime: string
 }
 
-const getPosts = cache(async (): Promise<Post[]> => {
+export const getPosts = cache(async (): Promise<Post[]> => {
   const postsRef = collection(db, 'posts')
   const q = query(
     postsRef, 

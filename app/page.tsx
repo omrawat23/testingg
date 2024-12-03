@@ -75,7 +75,7 @@ export default function Home() {
       
       <div className="mt-4 space-y-2 text-sm text-gray-400 text-center sm:text-left">
         <p>
-          I also write technical blogs sharing insights from my projects
+          I also write blogs sharing insights from my projects
           check them out <Link href="/blogs" className="underline hover:text-white">here</Link>.
         </p>
         
@@ -86,7 +86,7 @@ export default function Home() {
           </div>
           
           <p className="text-xs lowercase text-muted-foreground">
-            Actively seeking full-time front-end dev roles.
+            Actively seeking full-time front-end roles.
           </p>
         </div>
       </div>

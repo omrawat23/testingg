@@ -71,7 +71,7 @@ export default async function BlogPosts({ params }: Props) {
                 <div className="flex items-center space-x-1">
                   <Clock className="w-4 h-4" aria-hidden="true" />
                   <p className="text-sm text-muted-foreground">
-                    {post.readtime ? `${post.readtime} min read` : '6 min read'}
+                    {post.readtime ? `${post.readtime} min read` : '4 min read'}
                   </p>
                 </div>
                 <div className="flex items-center space-x-1">

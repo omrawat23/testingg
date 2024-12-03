@@ -50,7 +50,7 @@ export const PROJECTS = [
     name: "Spotifind",
     description: "Spotifind allows you to generate custom playlists based on your musical taste.",
     url: "https://spotifindd.vercel.app",
-    image: "/spotifind.PNG",
+    image: "/spot.png",
   },
   {
     name: "Cinenova",
@@ -59,9 +59,9 @@ export const PROJECTS = [
     image: "/c.png",
   },
   {
-    name: "Bloggify",
-    description: "This blog app that allows users to create, edit, and delete blog posts seamlessly",
-    url: "",
+    name: "Blogora",
+    description: "This blog app that allows users to create, edit, and delete blog posts seamlessly using a notion based editor.",
+    url: "https://blogora.vercel.app",
     image: "/b.png",
   },
 ]
