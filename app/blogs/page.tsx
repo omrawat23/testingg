@@ -1,30 +1,30 @@
+import { cache } from 'react'
 import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
 import { db } from '@/firebase';
-import MaxWidthWrapper from "@/components/MaxWidth";
-import { CalendarIcon, ClockIcon } from "@radix-ui/react-icons";
-import Link from 'next/link';
-import BackButton from './BackButton';
+import MaxWidthWrapper from "@/components/MaxWidth"
+import { CalendarIcon, ClockIcon } from "@radix-ui/react-icons"
+import Link from 'next/link'
+import BackButton from './BackButton'
 
 interface Post {
-  id: string;
-  title: string;
-  description: string;
-  createdAt: string;
-  readtime: string;
+  id: string
+  title: string
+  description: string
+  createdAt: string
+  readtime: string
 }
 
-// Utility function for fetching posts
-async function fetchPosts(): Promise<Post[]> {
-  const postsRef = collection(db, 'posts');
+const getPosts = cache(async (): Promise<Post[]> => {
+  const postsRef = collection(db, 'posts')
   const q = query(
-    postsRef,
+    postsRef, 
     where('authorId', '==', 'omrawat23@gmail.com'),
     orderBy('createdAt', 'desc')
-  );
-  const querySnapshot = await getDocs(q);
+  )
+  const querySnapshot = await getDocs(q)
 
   return querySnapshot.docs.map((doc) => {
-    const data = doc.data();
+    const data = doc.data()
     return {
       id: doc.id,
       title: data.title,
@@ -33,29 +33,23 @@ async function fetchPosts(): Promise<Post[]> {
         ? data.createdAt.toDate().toISOString().split('T')[0]
         : 'Unknown date',
       readtime: data.readtime ? `${data.readtime} min read` : '4 min read',
-    };
-  });
-}
+    }
+  })
+})
 
-function createSlug(title: string) {
+const createSlug = (title: string) => {
   return title
     .toLowerCase()
     .replace(/[^a-z0-9\s-]/g, '')
     .replace(/\s+/g, '-')
-    .trim();
+    .trim()
 }
 
-// Fetch posts at build time
-export async function getStaticProps() {
-  const posts = await fetchPosts();
-  return {
-    props: {
-      posts,
-    },
-  };
-}
+export const revalidate = 120; 
 
-export default function BlogsPage({ posts }: { posts: Post[] }) {
+export default async function BlogsPage() {
+  const posts = await getPosts()
+
   return (
     <MaxWidthWrapper maxWidth="sm">
       <div className="my-32 sm:my-52">
@@ -102,5 +96,5 @@ export default function BlogsPage({ posts }: { posts: Post[] }) {
         </div>
       </div>
     </MaxWidthWrapper>
-  );
+  )
 }
