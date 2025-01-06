@@ -13,7 +13,7 @@ export const siteMetadata: Metadata = {
       href: "/omi.png",
     },
   ],
-  keywords: ["Full Stack Engineer", "YouTuber", "Web Development", "React", "Next.js"],
+  keywords: ["Full Stack Engineer", "Web Development", "React", "Next.js"],
   authors: [{ name: "Om Rawat" }],
   openGraph: {
     title: "Om Rawat",
@@ -22,6 +22,12 @@ export const siteMetadata: Metadata = {
     siteName: "Om Rawat",
     locale: "en-US",
     type: "website",
+    images: [
+      { url: "https://www.omrawat.xyz/opengraph-image.jpg" },
+      {
+        url: "https://www.omrawat.xyz/twitter-image.jpg",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
