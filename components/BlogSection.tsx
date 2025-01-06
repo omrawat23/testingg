@@ -63,7 +63,7 @@ export default async function LatestBlogSection() {
 
   return (
     <div className="text-white">
-      <h2 className="text-md sm:text-lg font-bold mb-4">Latest blog 📝</h2>
+      <h2 className="text-md sm:text-lg font-bold mb-4">latest blog 📝</h2>
       <ul className="space-y-4">
         {posts.map((post) => {
           const slug = createSlug(post.title);

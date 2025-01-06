@@ -7,17 +7,17 @@ const nextConfig = {
   },
   reactStrictMode: true,
   images: {
-    domains: ['example.com', 'firebasestorage.googleapis.com'], // Add domains here
+    domains: ['example.com', 'firebasestorage.googleapis.com'],
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'firebasestorage.googleapis.com',
-        pathname: '/path/to/images/**', // Adjust the pattern as needed
+        pathname: '/path/to/images/**',
       },
       {
         protocol: 'https',
         hostname: 'anotherdomain.com',
-        pathname: '/images/**', // Adjust the pattern as needed
+        pathname: '/images/**', 
       },
     ],
   },

@@ -6,7 +6,7 @@ export const siteMetadata: Metadata = {
     default: "Om Rawat",
     template: "%s - Om",
   },
-  description: "Om Rawat is a Full Stack Engineer specializing in web development, React, and Next.js. Explore projects, services, and latest blog posts.",
+  description: "Om Rawat is a Full Stack Engineer specializing in web development, React, and Next.js. Explore his projects, experiences, and latest blog posts.",
   icons: [
     {
       url: "/omi.png",
@@ -27,7 +27,7 @@ export const siteMetadata: Metadata = {
     card: "summary_large_image",
     title: "Om Rawat",
     description: "Explore the portfolio of Om Rawat, a Full Stack Engineer specializing in web development.",
-    images: ["https://www.omrawat.xyz/twitter-image.jpg"],
+    images: "/omi.png",
     creator: "@omraw29",
   },
   robots: {
