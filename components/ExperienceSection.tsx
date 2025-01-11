@@ -58,7 +58,6 @@ function ExperienceCard({
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      whileHover={{ scale: 1.03 }}
       className="relative w-full p-4 rounded-lg border border-zinc-900 hover:cursor-pointer overflow-hidden transition-all duration-300 hover:border-gray-600"
     >
       {/* Radial gradient overlay */}
